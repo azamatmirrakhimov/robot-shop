@@ -4,12 +4,14 @@ metadata:
   annotations:
     kompose.cmd: kompose -f ../docker-compose.yaml convert
     kompose.version: 1.10.0 (8bb0907)
-  creationTimestamp: null
   labels:
     io.kompose.service: cart
   name: cart
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cart
   strategy: {}
   template:
     metadata:
