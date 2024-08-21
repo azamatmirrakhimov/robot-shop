@@ -4,12 +4,14 @@ metadata:
   annotations:
     kompose.cmd: kompose -f ../docker-compose.yaml convert
     kompose.version: 1.10.0 (8bb0907)
-  creationTimestamp: null
   labels:
     io.kompose.service: web
   name: web
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: web
   strategy: {}
   template:
     metadata:
@@ -20,6 +22,11 @@ spec:
       containers:
       - image: linuxacademycontent/rs-web:latest
         name: web
+        env:
+          - name: INSTANA_AGENT_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
         ports:
         - containerPort: 8080
         resources:
